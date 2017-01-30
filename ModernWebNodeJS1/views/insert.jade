@@ -1,0 +1,28 @@
+doctype html
+html
+	head 
+		title Insert Page
+	body
+		h1 Insert Page
+		hr
+		form(action='/insert' method='POST')
+			fieldset
+				legend Insert Data
+				table
+					tr
+						td 
+							label Name
+						td
+							input(type='text' name='name')
+					tr
+						td
+							label Model Number
+						td
+							input(type='text' name='modelnumber')
+					tr
+						td
+							label Series
+						td
+							input(type='text' name='series')
+				input(type='submit')
+		a(href='/') 뒤로가기
