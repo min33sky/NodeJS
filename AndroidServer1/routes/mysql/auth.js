@@ -73,5 +73,33 @@ module.exports = function(){
     });
   });
 
+  // 회원 List 출력
+  route.get('/list', function (req, res) {
+    var sql = 'SELECT * FROM user';
+    conn.query(sql, function (err, results) {
+      var result = {"response" : JSON.parse(JSON.stringify(results))};
+      console.log(result);
+      res.set('Content-type', 'application/json');
+      res.send(result);
+    })
+  })
+
+  // 회원 삭제
+  route.post('/delete', function (req, res) {
+    var sql = 'DELETE FROM user WHERE userID = ?';
+    conn.query(sql, [req.body.userID], function (err, results) {
+      console.log('삭제 아이디 : ' + req.body.userID);
+      if(err){
+        var result = JSON.stringify({"success" : false});
+        res.set('Content-Type', 'application/json');
+        res.send(result);
+      }else{
+        var result = JSON.stringify({"success" : true});
+        res.set('Content-Type', 'application/json');
+        res.send(result);
+      }
+    })
+  })
+
   return route;
 };
