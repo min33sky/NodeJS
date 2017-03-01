@@ -9,6 +9,7 @@ module.exports = function(){
   		var arr = JSON.parse(JSON.stringify(results));
   		var result = {'response' : arr};
   		console.log(result);
+  		res.set('Content-Type', 'application/json');
   		res.send(result);
   	});
   });
