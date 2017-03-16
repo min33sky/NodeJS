@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Email Form</title>
+	<style>
+		.result{
+			color : red;
+			margin-bottom: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h2>Login</h2>
+	<div class='result'></div>
+	<form action="/login" method="post">
+		Email : <input type="text" name="email"><br>
+		Password : <input type="password" name="password"><br>
+	</form>
+
+	<button class='ajaxsend'>Login</button>
+
+	<script>
+		document.querySelector('.ajaxsend').addEventListener('click', function () {
+			var email = document.getElementsByName('email')[0].value;
+			var password = document.getElementsByName('password')[0].value;
+			sendAjax('http://localhost:3000/login', {'email':email, 'password':password});
+		})
+
+
+		function sendAjax(url, data) {
+			// object를 json string으로 변경
+			data = JSON.stringify(data);
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', url);
+			// header에 json을 전송한다고 추가한다.
+			xhr.setRequestHeader('Content-Type', "application/json");
+			// 서버로 전송한다.
+			xhr.send(data);
+			// 서버에서 응답한 값을 읽는 리스너를 추가한다.
+			xhr.addEventListener('load', function () {
+				// 서버에서 받은 json 문자열을 json 객체로 파싱한다.
+				var result = JSON.parse(xhr.responseText);
+				var resultDiv = document.querySelector('.result');
+				// 결과 출력				
+				if(result.email){
+					// resultDiv.innerHTML = "Welcome!! " + result.email + "!!"; 
+					window.location.href='/main';	// 로그인 성공시 main으로 Redirect
+				}else if(xhr.status === 401){
+						resultDiv.innerHTML = result + "<div class='signup'><a href='/join'>Sign up</a></div>";
+				}else
+					resultDiv.innerHTML = result;
+			});
+		}
+	</script>
+</body>
+</html>

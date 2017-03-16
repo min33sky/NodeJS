@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Email Form</title>
+</head>
+<body>
+	<form action="/email/form" method="post">
+		email : <input type="text" name="email"><br>
+		<input type="submit">
+	</form>
+
+	<button class='ajaxsend'>ajaxsend</button>
+	<div class='result'></div>
+
+	<script>
+		document.querySelector('.ajaxsend').addEventListener('click', function () {
+			var inputdata = document.forms[0].elements[0].value;
+			sendAjax('http://localhost:3000/email/ajax', inputdata);
+		})
+
+
+		function sendAjax(url, data) {
+			var data = {'email' : data};
+			// object를 json string으로 변경
+			data = JSON.stringify(data);
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', url);
+			// header에 json을 전송한다고 추가한다.
+			xhr.setRequestHeader('Content-Type', "application/json");
+			// 서버로 전송한다.
+			xhr.send(data);
+			// 서버에서 응답한 값을 읽는 리스너를 추가한다.
+			xhr.addEventListener('load', function () {
+				// 서버에서 받은 json 문자열을 json 객체로 파싱한다.
+				var result = JSON.parse(xhr.responseText);
+				var resultDiv = document.querySelector('.result');
+				
+				// 결과 출력				
+				if(result.result !== 'ok')
+					resultDiv.innerHTML = "Your Email is not found"; 
+				else
+					resultDiv.innerHTML = result.name;
+			});
+		}
+	</script>
+</body>
+</html>

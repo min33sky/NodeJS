@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Join</title>
+	<style>
+		.messages{
+			color : #963b3b;
+			margin-bottom: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Join My Website!!</h1>
+	<section class="messages"> <%= message %></section>
+	<form action="/join" method="post">
+		email : <input type="text" name="email"><br>
+		name : <input type="text" name="name"><br>
+		password : <input type="text" name="password"><br>
+		<input type="submit">
+	</form>
+</body>
+</html>
