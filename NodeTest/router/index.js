@@ -2,11 +2,13 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var path = require('path');	// 상대 주소 사용
+// 라우터 모듈
 var main = require('./main/main');
 var email = require('./email/email');
 var join = require('./join/index');
 var login = require('./login/index');
 var logout = require('./logout/index');
+var withdraw = require('./withdraw/index');
 var movie = require('./movie/index');
 
 router.get('/', function (req, res) {
@@ -22,5 +24,6 @@ router.use('/join', join);
 router.use('/login', login);
 router.use('/logout', logout);
 router.use('/movie', movie);
+router.use('/withdraw', withdraw);
 
 module.exports = router;

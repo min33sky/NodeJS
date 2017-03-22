@@ -2,19 +2,11 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var path = require('path');	// 상대 주소 사용
-var mysql = require('mysql');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 // DATABASE SETTING
-var connection = mysql.createConnection({
-	host : 'localhost',
-	port : 3306,
-	user : 'root',
-	password : '1234',
-	database : 'studydb'
-});
-connection.connect();
+var connection = require('../../config/mysql/index')();
 
 router.get('/list', function (req, res) {
 	res.render('movie.ejs');

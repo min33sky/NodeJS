@@ -1,11 +1,13 @@
 var express = require('express');
 var app = express();
+// POST 메소드 모듈
 var bodyParser = require('body-parser');
 var router = require('./router/index');
+// 로그인 관련 모듈
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
-var flash = require('connect-flash');	// 로그인할때 message 처리 도와주는 모듈
+var flash = require('connect-flash');	// Passport의 message 처리 도와주는 모듈
 
 // 서버 가동
 app.listen(3000, function () {
@@ -31,7 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// 라우터 설정
+// 라우터 
 app.use(router);
 
 
